@@ -1,7 +1,7 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-MODEL_NAME = "meta-llama/Llama-3-1b"  # or ./models/llama-3-1b if downloaded locally
+MODEL_NAME = "meta-llama/Llama-3.2-1b"  # or ./models/llama-3-1b if downloaded locally
 
 def load_quantized_model():
     # Load tokenizer
