@@ -12,3 +12,5 @@ models/Llama-3.2-1B/USE_POLICY.md
 models/Llama-3.2-1B/original/consolidated.00.pth
 models/Llama-3.2-1B/original/params.json
 models/Llama-3.2-1B/original/tokenizer.model
+data/test.jsonl
+data/train.jsonl
