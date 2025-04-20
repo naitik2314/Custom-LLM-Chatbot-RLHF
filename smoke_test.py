@@ -1,20 +1,21 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-MODEL_NAME = "meta-llama/Llama-3.2-1b"  # or ./models/llama-3-1b if downloaded locally
+# Point at your local clone so it never re-downloads
+MODEL_NAME = "meta-llama/Llama-3.2-1B"
 
 def load_quantized_model():
-    # Load tokenizer
+    # Load tokenizer from local dir
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
-    # Load the full-precision model on CPU
+    # Load the full‑precision model on CPU
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_NAME,
         torch_dtype=torch.float32,
         low_cpu_mem_usage=True
     )
 
-    # Apply dynamic quantization to ALL Linear layers
+    # Apply dynamic quantization to all Linear layers
     model = torch.quantization.quantize_dynamic(
         model,
         {torch.nn.Linear},
@@ -25,18 +26,21 @@ def load_quantized_model():
 def generate_sample(tokenizer, model):
     prompt = "Human: Hello, who are you?\nAssistant:"
     inputs = tokenizer(prompt, return_tensors="pt")
-    # Generate with a small max_new_tokens for speed
+
     outputs = model.generate(
         **inputs,
         max_new_tokens=50,
-        do_sample=False,
-        eos_token_id=tokenizer.eos_token_id
+        do_sample=True,        # ← must be True for sampling
+        temperature=0.7,       # randomness
+        top_p=0.9,             # nucleus sampling
+        pad_token_id=tokenizer.eos_token_id
     )
+
     print("\n=== Response ===")
     print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 if __name__ == "__main__":
-    print("Loading and quantizing model… this may take 1–2 minutes.")
+    print("Loading and quantizing model…")
     tokenizer, model = load_quantized_model()
-    print("Model loaded. Generating sample response:")
+    print("Model ready; generating a sample:")
     generate_sample(tokenizer, model)

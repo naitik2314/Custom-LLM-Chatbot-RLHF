@@ -1,1 +1,14 @@
 /venv
+models/Llama-3.2-1B/.gitattributes
+models/Llama-3.2-1B/config.json
+models/Llama-3.2-1B/generation_config.json
+models/Llama-3.2-1B/LICENSE.txt
+models/Llama-3.2-1B/model.safetensors
+models/Llama-3.2-1B/README.md
+models/Llama-3.2-1B/special_tokens_map.json
+models/Llama-3.2-1B/tokenizer_config.json
+models/Llama-3.2-1B/tokenizer.json
+models/Llama-3.2-1B/USE_POLICY.md
+models/Llama-3.2-1B/original/consolidated.00.pth
+models/Llama-3.2-1B/original/params.json
+models/Llama-3.2-1B/original/tokenizer.model
