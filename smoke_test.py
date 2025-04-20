@@ -1,8 +1,8 @@
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-# Point at your local clone so it never re-downloads
-MODEL_NAME = "meta-llama/Llama-3.2-1B"
+# MODEL_NAME = "meta-llama/Llama-3.2-1B" # Uncomment this to download the model everytime you run the script
+MODEL_NAME = "models/Llama-3.2-1B" # Point at your local clone so it never re-downloads
 
 def load_quantized_model():
     # Load tokenizer from local dir
